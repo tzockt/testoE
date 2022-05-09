@@ -14,7 +14,7 @@ jobs:
           username: 'bot'
           server: 'stalin.tzockt.tk'
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }} 
-          local_path: './'
+          local_path: './*'
           remote_path: './TestoE-Bot'
           args: '-o ConnectTimeout=5'
           
