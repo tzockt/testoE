@@ -1,0 +1,17 @@
+{
+  "name": "tzockt",
+  "version": "1.0.0",
+  "description": "Discord Test Bot [TestoE]",
+  "main": "main.js",
+  "scripts": {
+    "start": "nodemon main.js"
+  },
+  "author": "TZockt",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "discord.js": "^13.6.0",
+    "nodemon": "^2.0.5",
+    "reddit.images": "^1.0.5"
+  }
+}
