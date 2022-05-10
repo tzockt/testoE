@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const reddit = require("reddit-image-fetcher");
+const reddit = require('reddit.images');
 
 
 module.exports = {
@@ -7,23 +7,18 @@ module.exports = {
     description: "Dies ist ein Meme Befehl!",
     async execute(messageCreate, args){
         try {
-            const sub_r = args[0] ?? 'memes';
-            reddit.fetch({ subreddit: [sub_r], type: 'custom', total: 1 }).then((post_raw) => {
-                // console.log(post)
-                // Array.isArray(post)
-                const post = post_raw[0]; // ah stonks
+            const subreddit = args[0] ? args[0] : 'memes';
+            reddit.FetchSubredditPost({ subreddit: subreddit }).then((post) => {
                 const Embed = new Discord.MessageEmbed()
-                .setTitle(post.title ? post.title : "API DOOF")
+                .setTitle(post.title)
                 .setURL(post.postLink)
                 .setImage(post.image)
-                .setFooter({text: `Subbreddit: ${post.subreddit}`})
-                messageCreate.channel.send({ embeds: [Embed]})
-            
+                .setFooter({text: `Posted by ${post.author}`})
+            messageCreate.channel.send({ embeds: [Embed]})
             });
 
         
         } catch (error) {
-            console.log(error)
             const ErrEmbed = new Discord.MessageEmbed()
                 .setColor("d50000")
                 .setTitle("Fehler!")
