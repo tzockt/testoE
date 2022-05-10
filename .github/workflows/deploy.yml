@@ -11,6 +11,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Stop Bot
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: screen -X -S "TestoE" quit
+          host: ${{ secrets.HOST }}
+          username: bot
+          privateKey: ${{ secrets.SSH_PRIVATE_KEY}}      
+
       - name: deploy file
         uses: wlixcc/SFTP-Deploy-Action@v1.0
         with:

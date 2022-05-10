@@ -1,1 +1,2 @@
-screen -AmdS boibot nodemon main.js 
+#/bin/bash
+screen -AmdS testoE npm start 
