@@ -13,22 +13,23 @@ jobs:
 
       - name: Stop Bot
         uses: garygrossgarten/github-action-ssh@release
+        continue-on-error: true
         with:
           command: screen -X -S "TestoE" quit
           host: ${{ secrets.HOST }}
           username: bot
-          privateKey: ${{ secrets.SSH_PRIVATE_KEY}}      
+          privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
 
       - name: deploy file
         uses: wlixcc/SFTP-Deploy-Action@v1.0
         with:
-          username: 'bot'
-          server: 'stalin.tzockt.tk'
-          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }} 
-          local_path: './*'
-          remote_path: './TestoE-Bot'
-          args: '-o ConnectTimeout=5'
-          
+          username: "bot"
+          server: "stalin.tzockt.tk"
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          local_path: "./*"
+          remote_path: "./TestoE-Bot"
+          args: "-o ConnectTimeout=5"
+
       - name: NPM Install
         uses: garygrossgarten/github-action-ssh@release
         with:
@@ -43,7 +44,7 @@ jobs:
           command: cd TestoE-Bot && sed -i 's/<Token>/${{ secrets.TOKEN}}/g' cfg/config.json
           host: ${{ secrets.HOST }}
           username: bot
-          privateKey: ${{ secrets.SSH_PRIVATE_KEY}}          
+          privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
 
       - name: Start Bot
         uses: garygrossgarten/github-action-ssh@release
@@ -51,7 +52,4 @@ jobs:
           command: cd TestoE-Bot && bash start.sh
           host: ${{ secrets.HOST }}
           username: bot
-          privateKey: ${{ secrets.SSH_PRIVATE_KEY}}          
-
-
-      
+          privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
