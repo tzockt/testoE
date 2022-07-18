@@ -6,7 +6,7 @@ module.exports = {
     name: "help",
     description: "Dies ist ein Hilfebefehl!",
     async execute(messageCreate, args){
-        const Embed = new Discord.MessageEmbed()
+        const Embed = new Discord.EmbedBuilder()
         .setTitle("Commands from " + messageCreate.client.user.username)
         .setDescription(`Mein Prefix ist ${config.prefix}\n<> = benötigt\n[] = optional`)
         .addFields(

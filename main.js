@@ -4,7 +4,7 @@ const fs = require("fs");
 const config = JSON.parse(fs.readFileSync("./cfg/config.json", "utf8"));
 
 //var client = new Discord.Client();
-const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] })
+const client = new Discord.Client({ intents: [Discord.GatewayIntentBits.Guilds,Discord.GatewayIntentBits.GuildMessages,Discord.GatewayIntentBits.MessageContent], partials: [Discord.Partials.Channel] });
 
 // ----------------------------------------------------------------------------------------------------------------------
 
@@ -18,6 +18,7 @@ for (const file of CommandFiles) {
 
 client.on("messageCreate", message => {
     if(!message.content.startsWith(config.prefix) || message.author.bot) return;
+    console.log("fasdgöjkln")
 
     const args = message.content.slice(config.prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
@@ -48,6 +49,6 @@ client.login(config.token);
 client.on("ready", () =>{
     var TicketChannelIDs = [];
     console.log(colors.rainbow(`Logged in as ${client.user.tag}!`));
-    client.user.setActivity(`Version: ${config.version}`, {type: "WATCHING"});
+    client.user.setActivity(`Version: ${config.version}`, {type: Discord.ActivityType.Watching});
      
 });
