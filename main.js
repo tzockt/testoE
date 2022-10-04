@@ -18,7 +18,7 @@ for (const file of CommandFiles) {
 
 client.on("messageCreate", message => {
     if(!message.content.startsWith(config.prefix) || message.author.bot) return;
-    console.log("fasdgöjkln")
+    //console.log("fasdgöjkln")
 
     const args = message.content.slice(config.prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
@@ -29,8 +29,8 @@ client.on("messageCreate", message => {
         client.commands.get("meme").execute(message, args);
     }else if(command === "ping"){
         client.commands.get("ping").execute(message, args);
-    }else if(command === "delete"){
-        client.commands.get("delete").execute(message, args);
+    }else if(command === "clear"){
+        client.commands.get("clear").execute(message, args);
     }
 
 });
