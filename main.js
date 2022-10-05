@@ -18,7 +18,7 @@ for (const file of CommandFiles) {
 
 client.on("messageCreate", message => {
     if(!message.content.startsWith(config.prefix) || message.author.bot) return;
-    //console.log("fasdgöjkln")
+    //console.log("fasdgöjkkln")
 
     const args = message.content.slice(config.prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
