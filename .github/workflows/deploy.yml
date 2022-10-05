@@ -25,7 +25,7 @@ jobs:
         with:
           username: "bot"
           server: ${{ secrets.HOST }}
-          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY}}
+          ssh_private_key: ${{ secrets.SSH_SECRET_PEM }}
           local_path: "./*"
           remote_path: "./TestoE-Bot"
           args: "-o ConnectTimeout=5"
@@ -34,7 +34,7 @@ jobs:
         uses: garygrossgarten/github-action-ssh@release
         with:
           command: cd TestoE-Bot && npm i
-          host: ${{ secrets.HOST}}
+          host: ${{ secrets.HOST }}
           username: bot
           privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
 
@@ -42,7 +42,7 @@ jobs:
         uses: garygrossgarten/github-action-ssh@release
         with:
           command: cd TestoE-Bot && sed -i 's/<Token>/${{ secrets.TOKEN}}/g' cfg/config.json
-          host: ${{ secrets.HOST}}
+          host: ${{ secrets.HOST }}
           username: bot
           privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
 
