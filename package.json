@@ -11,6 +11,7 @@
   "dependencies": {
     "colors": "^1.4.0",
     "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3",
     "nodemon": "^2.0.20",
     "reddit-image-fetcher": "^2.0.11"
   }
