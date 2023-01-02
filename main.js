@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const colors = require("colors");
 const fs = require("fs");
 const config = JSON.parse(fs.readFileSync("./cfg/config.json", "utf8"));
-require("dontenv").config();
+require("dotenv").config();
 
 //var client = new Discord.Client();
 const client = new Discord.Client({ intents: [Discord.GatewayIntentBits.Guilds,Discord.GatewayIntentBits.GuildMessages,Discord.GatewayIntentBits.MessageContent], partials: [Discord.Partials.Channel] });
