@@ -12,7 +12,7 @@
     "colors": "^1.4.0",
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
-    "nodemon": "^2.0.21",
+    "nodemon": "^2.0.22",
     "reddit-image-fetcher": "^2.0.11"
   }
 }
