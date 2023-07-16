@@ -6,25 +6,25 @@ on:
   workflow_dispatch:
     inputs:
       logLevel:
-        description: 'Log level'     
+        description: "Log level"
         required: true
-        default: 'warning' 
+        default: "warning"
         type: choice
         options:
-        - info
-        - warning
-        - debug 
+          - info
+          - warning
+          - debug
       tags:
-        description: 'Test scenario tags'
-        required: false 
+        description: "Test scenario tags"
+        required: false
         type: boolean
-        
+
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-     contents: read
-     packages: write
+      contents: read
+      packages: write
     steps:
       - name: Checkout Github
         uses: actions/checkout@v2
@@ -53,8 +53,8 @@ jobs:
           fi
 
           # Set output parameters.
-          echo ::set-output name=tags::${TAGS}
-          echo ::set-output name=docker_image::${DOCKER_IMAGE}
+          echo "tags=${TAGS}" >> $GITHUB_OUTPUT
+          echo "docker_image=${DOCKER_IMAGE}" >> $GITHUB_OUTPUT
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
