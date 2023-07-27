@@ -49,7 +49,7 @@ client.on("messageCreate", message => {
 client.login(process.env.token);
 client.on("ready", () =>{
     var TicketChannelIDs = [];
-    console.log(colors.rainbow(`Logged in as ${client.user.tag}!`));
+    console.log(colors.rainbow(`Logged in as ${client.user.tag} Version: ${config.version}!`));
     client.user.setActivity(`Version: ${config.version}`, {type: Discord.ActivityType.Watching});
      
 });
