@@ -10,7 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "colors": "^1.4.0",
-    "discord.js": "^14.15.3",
+    "discord.js": "^14.16.1",
     "dotenv": "^16.4.5",
     "nodemon": "^3.1.4",
     "reddit-image-fetcher": "^2.0.12"
