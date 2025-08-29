@@ -1,23 +1,23 @@
-const Discord = require("discord.js");
-const fs = require("fs");
-const config = JSON.parse(fs.readFileSync("./cfg/config.json", "utf8"));
+const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
 module.exports = {
     name: "help",
-    description: "Dies ist ein Hilfebefehl!",
-    async execute(messageCreate, args){
-        const Embed = new Discord.EmbedBuilder()
-        .setTitle("Commands from " + messageCreate.client.user.username)
-        .setDescription(`Mein Prefix ist ${config.prefix}\n<> = benötigt\n[] = optional`)
-        .addFields(
-            { name: config.prefix + "help", value: "Gibt alle Commands aus und ihre Funktion"},
-            { name: config.prefix + "ping", value: "Client Ping"},
-            { name: config.prefix + "meme <subreddit>", value: "Sendet ein zufälliges Meme von Reddit"},
-            { name: config.prefix + "clear <amount>", value: "Nachrichten löschen"}
-        )
-        .setColor("#2980b9")
-        .setFooter({text: `Command from ${messageCreate.author.username}`});
+    data: new SlashCommandBuilder()
+        .setName('help')
+        .setDescription('Zeigt alle verfügbaren Commands an'),
+    async execute(interaction) {
+        const embed = new EmbedBuilder()
+            .setTitle(`Commands von ${interaction.client.user.username}`)
+            .setDescription('Hier sind alle verfügbaren Slash Commands:')
+            .addFields(
+                { name: '/help', value: 'Zeigt alle Commands an' },
+                { name: '/ping', value: 'Bot-Latenz anzeigen' },
+                { name: '/meme [subreddit]', value: 'Sendet ein zufälliges Meme von Reddit' },
+                { name: '/clear <anzahl>', value: 'Nachrichten löschen (1-100)' }
+            )
+            .setColor('#2980b9')
+            .setFooter({ text: `Angefordert von ${interaction.user.username}` });
 
-        messageCreate.channel.send({ embeds: [Embed]});
+        await interaction.reply({ embeds: [embed] });
     }
 }

@@ -1,36 +1,44 @@
-const Discord = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const reddit = require("reddit-image-fetcher");
-
 
 module.exports = {
     name: "meme",
-    description: "Dies ist ein Meme Befehl!",
-    async execute(messageCreate, args){
+    data: new SlashCommandBuilder()
+        .setName('meme')
+        .setDescription('Sendet ein zufälliges Meme von Reddit')
+        .addStringOption(option =>
+            option.setName('subreddit')
+                .setDescription('Das Subreddit von dem das Meme kommen soll')
+                .setRequired(false)),
+    async execute(interaction) {
+        await interaction.deferReply();
+        
         try {
-            const sub_r = args[0] ?? 'memes';
-            reddit.fetch({ subreddit: [sub_r], type: 'custom', total: 1 }).then((post_raw) => {
-                // console.log(post)
-                // Array.isArray(post)
-                const post = post_raw[0]; // ah stonks
-                const Embed = new Discord.EmbedBuilder()
-                .setTitle(post.title ? post.title : "API DOOF")
+            const subreddit = interaction.options.getString('subreddit') ?? 'memes';
+            const posts = await reddit.fetch({ subreddit: [subreddit], type: 'custom', total: 1 });
+            
+            if (!posts || posts.length === 0) {
+                await interaction.editReply('Keine Memes in diesem Subreddit gefunden.');
+                return;
+            }
+            
+            const post = posts[0];
+            const embed = new EmbedBuilder()
+                .setTitle(post.title || "Meme")
                 .setURL(post.postLink)
                 .setImage(post.image)
-                .setFooter({text: `Subbreddit: ${post.subreddit}`})
-                messageCreate.channel.send({ embeds: [Embed]})
+                .setFooter({ text: `Subreddit: r/${post.subreddit}` })
+                .setColor('#ff4500');
             
-            });
-
-        
+            await interaction.editReply({ embeds: [embed] });
         } catch (error) {
-            console.log(error)
-            const ErrEmbed = new Discord.EmbedBuilder()
-                .setColor("d50000")
-                .setTitle("Fehler!")
-                .setDescription(error)
+            console.error('Meme command error:', error);
+            const errorEmbed = new EmbedBuilder()
+                .setColor('#d50000')
+                .setTitle('Fehler!')
+                .setDescription('Ein Fehler ist beim Laden des Memes aufgetreten.');
 
-            messageCreate.channel.send({embeds: [ErrEmbed]})
+            await interaction.editReply({ embeds: [errorEmbed] });
         }
-        
     }
 }
