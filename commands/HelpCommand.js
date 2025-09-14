@@ -12,7 +12,6 @@ module.exports = {
             .addFields(
                 { name: '/help', value: 'Zeigt alle Commands an' },
                 { name: '/ping', value: 'Bot-Latenz anzeigen' },
-                { name: '/meme [subreddit]', value: 'Sendet ein zufälliges Meme von Reddit' },
                 { name: '/clear <anzahl>', value: 'Nachrichten löschen (1-100)' }
             )
             .setColor('#2980b9')
