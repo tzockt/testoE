@@ -20,10 +20,10 @@ const CommandFiles = fs.readdirSync("./commands/").filter(files => files.endsWit
 for (const file of CommandFiles) {
     try {
         const command = require(`./commands/${file}`);
-        if (command.name) {
+        if (command.name && command.data && typeof command.execute === "function") {
             client.commands.set(command.name, command);
         } else {
-            console.warn(`Command file ${file} is missing a name property`);
+            console.warn(`Command file ${file} is missing required properties (name, data, execute) — skipped`);
         }
     } catch (error) {
         console.error(`Error loading command ${file}:`, error);
